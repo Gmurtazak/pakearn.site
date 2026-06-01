@@ -8,7 +8,7 @@ date_default_timezone_set('Asia/Karachi');
 try {
 
     // ✅ GET DATA SAFELY
-    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    $id  = isset($_POST['id']) ? (int)$_POST['id'] : 0;
     $box = $_POST['box'] ?? '';
 
     if ($id <= 0 || empty($box)) {
@@ -30,8 +30,8 @@ try {
         exit;
     }
 
-    // ✅ CHECK ALREADY CLICKED
-    $stmt = $conn->prepare("SELECT $box FROM records WHERE id = ?");
+    // ✅ GET USER DATA (box + amount)
+    $stmt = $conn->prepare("SELECT $box, amount FROM records WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -45,6 +45,7 @@ try {
         exit;
     }
 
+    // ❌ Already earned check
     if ($row[$box] == 0) {
         echo json_encode([
             'success' => false,
@@ -53,22 +54,52 @@ try {
         exit;
     }
 
-    // ✅ UPDATE BOX FIRST (PREVENT DOUBLE CLICK)
+    // ✅ LOCK BOX (prevent double click)
     $stmt = $conn->prepare("UPDATE records SET $box = 0 WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
 
-    // 🔥 SIMPLE EARNING (you can later replace with your full logic)
-    $earn = 10;
+    // 🔥 AMOUNT BASED LOGIC
+    $amount = (int)$row['amount'];
 
-    $conn->query("UPDATE earnings SET total_earning = total_earning + $earn WHERE id = $id");
+    $map = [
+        600  => ['base' => 2, 'reward' => 48],
+        1200 => ['base' => 3, 'reward' => 97],
+        1800 => ['base' => 5, 'reward' => 176],
+        3600 => ['base' => 6, 'reward' => 250],
+    ];
 
-    $conn->query("UPDATE level SET reward = reward + $earn WHERE us_id = $id");
+    if (!isset($map[$amount])) {
+        echo json_encode([
+            'success' => false,
+            'error' => 'Invalid amount configuration'
+        ]);
+        exit;
+    }
+
+    $base   = $map[$amount]['base'];
+    $reward = $map[$amount]['reward'];
+
+    // 🔥 UPDATE TOTAL EARNINGS
+    $conn->query("
+        UPDATE earnings 
+        SET total_earning = total_earning + $base 
+        WHERE id = $id
+    ");
+
+    // 🔥 UPDATE LEVEL REWARD
+    $conn->query("
+        UPDATE level 
+        SET reward = reward + $reward 
+        WHERE us_id = $id
+    ");
 
     // ✅ RESPONSE
     echo json_encode([
         'success' => true,
-        'earn' => $earn
+        'base' => $base,
+        'reward' => $reward,
+        'amount' => $amount
     ]);
 
 } catch (Exception $e) {

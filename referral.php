@@ -3,22 +3,33 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 include 'session_check.php';
 include 'adss.php';
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?? 0;
 
-// Query to fetch user details by ID
-$sql = "SELECT * FROM records WHERE id='$id'";
-$result = $conn->query($sql);
+if (!ctype_digit((string)$id)) {
+    http_response_code(403);
+    exit("Invalid user ID.");
+}
+
+$stmt = $conn->prepare("SELECT * FROM records WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$domain = $_SERVER['HTTP_HOST'];
+$baseUrl = $protocol . "://" . $domain;
 
 if ($result === false || $result->num_rows === 0) {
-    // Handle case where user ID is not found or query fails
     $name = "Unknown";
     $referralLink = "Invalid user ID";
     $stat = null;
 } else {
     $row = $result->fetch_assoc();
+
     $name = $row['name'];
-    $referralLink = "https://pakearns.net/reg.php?id=$id&name=" . urlencode($name);
     $stat = $row['stat'];
+
+    $referralLink = $baseUrl . "/reg.php?id=" . urlencode($id) . "&name=" . urlencode($name);
 }
 ?>
 
