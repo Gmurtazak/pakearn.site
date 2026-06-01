@@ -1,0 +1,231 @@
+/* Base Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.pending-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+    overflow-x: auto;
+}
+
+.ap {
+    color: red;
+}
+
+.pending-box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.pending-box th, .pending-box td {
+    padding: 10px;
+    text-align: left;
+}
+
+.pending-box th {
+    background-color: #f2f2f2;
+}
+
+.pending-box tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-container button,
+.pending-box .reject-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+
+.button-container button:hover,
+.pending-box .reject-button:hover {
+    background-color: #0056b3;
+}
+
+.pending-box .reject-button {
+    background-color: #dc3545;
+    margin: 0;
+}
+
+.pending-box .reject-button:hover {
+    background-color: #c82333;
+}
+
+.form-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-container form {
+    display: inline-block;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    width: calc(100% - 22px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Custom CSS for dropdown */
+.form-container select {
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.form-container input[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Radio Button Styles */
+.form-container .radio-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.radio-container label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.radio-container input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .pending-box {
+        padding: 15px;
+    }
+
+    .pending-box th, .pending-box td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .button-container button,
+    .pending-box .reject-button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container select {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .form-container input[type="submit"] {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .radio-container label {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .pending-box {
+        padding: 10px;
+    }
+
+    .pending-box th, .pending-box td {
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    .button-container button,
+    .pending-box .reject-button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="number"],
+    .form-container select {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .form-container input[type="submit"] {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .radio-container label {
+        font-size: 12px;
+    }
+}

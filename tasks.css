@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Header */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Tasks Box */
+.tasks-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+thead {
+    background-color: #f8f8f8;
+}
+
+thead th {
+    color: #555;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Status Colors */
+.status-approved {
+    color: #4CAF50; /* Green */
+}
+
+.status-rejected {
+    color: #f44336; /* Red */
+}
+
+/* Buttons */
+button, a {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, a:hover {
+    background-color: #0056b3;
+}
+
+button {
+    background-color: #28a745; /* Green */
+    color: white;
+    margin: 0 5px;
+}
+
+button.change-status {
+    background-color: #17a2b8; /* Teal */
+}
+
+button.download {
+    background-color: #007bff; /* Blue */
+}
+
+/* Form Container */
+.form-container {
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table th, table td {
+        padding: 8px;
+    }
+    
+    button, a {
+        padding: 8px 16px;
+    }
+
+    .form-container {
+        max-width: 90%;
+    }
+}

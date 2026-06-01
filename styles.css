@@ -1,0 +1,173 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-mode {
+    background-color: #181818;
+    color: #ffffff;
+}
+
+.container {
+    width: 90%;
+    margin: 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #0056b3;
+}
+
+.toggle-button i {
+    font-size: 1.2em;
+}
+
+.main-box {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: background-color 0.3s;
+}
+
+.dark-mode .main-box {
+    background-color: #333333;
+}
+
+.welcome {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.top-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.top-row .box {
+    width: 48%;
+    margin-right: 4%;
+}
+
+.top-row .box:last-child {
+    margin-right: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.box {
+    background-color: #8E44AD;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.box:nth-child(2n) {
+    background: linear-gradient(135deg, #1E90FF 0%, #00BFFF 100%);
+}
+
+.box:nth-child(3n) {
+    background-color: #8E44AD;
+}
+
+.box:nth-child(4n) {
+    background: linear-gradient(135deg, #1E90FF 0%, #00BFFF 100%);
+}
+
+.box h2 {
+    margin: 10px 0 0;
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.box i {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.box:hover {
+    transform: scale(1.05);
+}
+
+.dark-mode .box {
+    background-color: #444444;
+}
+
+p {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.password-button,
+.ads-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 0.9em;
+}
+
+.password-button:hover,
+.ads-button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .box {
+        height: auto;
+        padding: 15px;
+    }
+
+    .box h2 {
+        font-size: 1.3em;
+    }
+
+    .box i {
+        font-size: 2em;
+        margin-bottom: 5px;
+    }
+}

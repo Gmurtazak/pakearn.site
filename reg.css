@@ -1,0 +1,180 @@
+* {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .registration-container {
+        background:#ff5722;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    .referral-info {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+        font-size: 18px;
+    }
+
+    .message {
+        padding: 10px;
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        border: 1px solid #d0e9c6;
+        color: #3c763d;
+        margin-bottom: 10px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        position: relative;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="tel"]:focus {
+        outline: none;
+        border-color: #66afe9;
+    }
+
+    .error-message {
+        color: red;
+        font-size: 0.6em;
+        margin-top: 5px;
+    }
+
+    button {
+        background-color: green;
+        color: #fff;
+        border: none;
+        padding: 12px;
+        font-size: 16px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    .signup {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .signup a {
+        color: yellow;
+    }
+
+    .signup a:hover {
+        text-decoration: underline;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #666;
+    }
+
+    .toggle-password:hover {
+        color: #333;
+    }
+
+    .box {
+        background:linear-gradient(135deg, #f39c12, #e67e22) ;
+        /* Purple background */
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        transition: transform 0.3s;
+        color: #fff;
+    }
+
+    .box:nth-child(2),
+    .box:nth-child(5),
+    .box:nth-child(8),
+    .box:nth-child(11) {
+        background: linear-gradient(135deg, #f39c12, #e67e22);
+        /* Blue gradient */
+    }
+
+    .box:hover {
+        transform: translateY(-10px);
+    }
+
+    .box h2 {
+        font-size: 1.8em;
+        margin: 0 0 10px;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .box p {
+        font-size: 1.0em;
+        margin: 10px 0;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .box i {
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 600px) {
+        .box {
+            width: 100%;
+        }
+    }
