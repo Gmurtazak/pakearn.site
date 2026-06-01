@@ -1,38 +1,37 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/../private/security.php'; ?>
 <?php
-// Block common SQL injection attempts via GET parameters (case-insensitive)
-$blacklist = ['select', 'insert', 'update', 'delete', 'drop', 'truncate', 'alter', '--', ';', '/*', '*/', '@@', '@', 'exec', '1=1'];
+include $_SERVER['DOCUMENT_ROOT'] . '/../private/security.php';
 
-foreach ($_GET as $param => $value) {
-    if (is_array($value)) continue;
-
-    $value = strtolower($value); // convert input to lowercase
-
-    foreach ($blacklist as $word) {
-        if (strpos($value, $word) !== false) {
-            http_response_code(403);
-            exit("Blocked: Malicious keyword '$word' detected in URL.");
-        }
-    }
-}
-?>
-<?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 include 'session_check.php';
-$id = $_GET['id'];
 
-// Query to fetch user details by ID
-$sql = "SELECT * FROM records WHERE id='$id'";
-$result = $conn->query($sql);
+// Get ID safely
+$id = $_GET['id'] ?? 0;
+
+// Only allow numeric ID
+if (!ctype_digit((string)$id)) {
+    http_response_code(403);
+    exit("Invalid user ID.");
+}
+
+// Secure query
+$stmt = $conn->prepare("SELECT * FROM records WHERE id = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Auto-detect current domain
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
+$domain = $_SERVER['HTTP_HOST'];
+$baseUrl = $protocol . "://" . $domain;
 
 if ($result === false || $result->num_rows === 0) {
-    // Handle case where user ID is not found or query fails
     $name = "Unknown";
     $referralLink = "Invalid user ID";
 } else {
     $row = $result->fetch_assoc();
     $name = $row['name'];
-    $referralLink = "https://pakearn.site/reg.php?id=$id&name=" . urlencode($name);
+
+    $referralLink = $baseUrl . "/reg.php?id=" . urlencode($id) . "&name=" . urlencode($name);
 }
 ?>
 

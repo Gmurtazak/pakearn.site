@@ -63,6 +63,8 @@ try {
 
     $conn->query("UPDATE earnings SET total_earning = total_earning + $earn WHERE id = $id");
 
+    $conn->query("UPDATE level SET reward = reward + $earn WHERE us_id = $id");
+
     // ✅ RESPONSE
     echo json_encode([
         'success' => true,
