@@ -1,20 +1,5 @@
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/../private/security.php'; ?>
 <?php
-// Block common SQL injection attempts via GET parameters (case-insensitive)
-$blacklist = ['select', 'insert', 'update', 'delete', 'drop', 'truncate', 'alter', '--', ';', '/*', '*/', '@@', '@', 'exec', '1=1'];
-foreach ($_GET as $param => $value) {
-    if (is_array($value)) continue;
-    $value = strtolower($value);
-    foreach ($blacklist as $word) {
-        if (strpos($value, $word) !== false) {
-            http_response_code(403);
-            exit("Blocked: Malicious keyword '$word' detected in URL.");
-        }
-    }
-}
-
 include 'session_check.php';
-session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . '/connection.php';
 
 $message = "";
@@ -31,23 +16,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "New passwords do not match.";
     }
     else {
-        include $_SERVER['DOCUMENT_ROOT'] . '/../private/unblock_pass.php';
+        // Attempt to unblock/block password logic if exists
+        include 'private/unblock_pass.php'; 
+        
         // Update in records table
         $updateRecords = $conn->prepare("UPDATE records SET password = ? WHERE id = ?");
         $updateRecords->bind_param("si", $newPassword, $userId);
         $updateRecords->execute();
+        $affected1 = $updateRecords->affected_rows;
         $updateRecords->close();
 
         // Update in users table
         $updateUsers = $conn->prepare("UPDATE users SET password = ? WHERE id = ?");
         $updateUsers->bind_param("si", $newPassword, $userId);
         $updateUsers->execute();
+        $affected2 = $updateUsers->affected_rows;
         $updateUsers->close();
 
-        $message = "Password updated in both tables successfully.";
-        $success = true;
-        include $_SERVER['DOCUMENT_ROOT'] . '/../private/block_pass.php';
-
+        if ($affected1 > 0 || $affected2 > 0) {
+            $message = "Password updated successfully in at least one table.";
+            $success = true;
+        } else {
+            $err1 = $conn->error;
+            $message = "Error: No rows updated. User ID: $userId. DB Error if any: $err1";
+        }
+        
+        // include $_SERVER['DOCUMENT_ROOT'] . '/../private/block_pass.php';
     }
 }
 $conn->close();
@@ -127,6 +121,11 @@ $conn->close();
       display: block;
       width: 100%;
       background-color: #6c757d;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      padding: 12px;
+      border-radius: 6px;
     }
 
     .close-btn:hover {
@@ -148,7 +147,7 @@ $conn->close();
 <body>
   <div class="box">
     <h2>Update Password</h2>
-    <form method="POST">
+    <form method="POST" action="chpass.php?id=<?php echo $userId; ?>">
       <label for="new_password">New Password:</label>
       <input type="password" id="new_password" name="new_password" required />
 
@@ -163,7 +162,7 @@ $conn->close();
     <?php endif; ?>
 
     <?php if ($success): ?>
-      <button class="btn close-btn" onclick="window.history.back();">Close</button>
+      <a href="user_page.php?id=<?php echo $userId; ?>" class="close-btn">Go Back</a>
     <?php endif; ?>
   </div>
 </body>

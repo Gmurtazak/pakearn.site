@@ -170,28 +170,28 @@ if (isset($_GET['amount']) && !in_array($_GET['amount'], $valid_amounts)) {
             <div class="plan-box">
                 <h2>Basic</h2>
                 <p>600.00 Pkr</p>
-                <a href="payment.php?amount=600" class="buy-button">
+                <a href="pay.php?amount=600" class="buy-button">
                     <span class="icon">💰</span>Buy on 600
                 </a>
             </div>
             <div class="plan-box">
                 <h2>Gold</h2>
                 <p>1,200.00 Pkr</p>
-                <a href="payment.php?amount=1200" class="buy-button">
+                <a href="pay.php?amount=1200" class="buy-button">
                     <span class="icon">💰</span>Buy on 1,200
                 </a>
             </div>
             <div class="plan-box">
                 <h2>Platinum</h2>
                 <p>1,800.00 Pkr</p>
-                <a href="payment.php?amount=1800" class="buy-button">
+                <a href="pay.php?amount=1800" class="buy-button">
                     <span class="icon">💰</span>Buy on 1,800
                 </a>
             </div>
             <div class="plan-box">
                 <h2>Special</h2>
                 <p>3,600.00 Pkr</p>
-                <a href="payment.php?amount=3600" class="buy-button">
+                <a href="pay.php?amount=3600" class="buy-button">
                     <span class="icon">💰</span>Buy on 3,600
                 </a>
             </div>

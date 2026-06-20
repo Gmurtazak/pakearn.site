@@ -21,6 +21,9 @@ if ($id == 5564208 || $id == 5563642) {
 
 include 'adss.php';
 
+// Load marquee text from move.txt
+$marqueeText = file_exists('move.txt') ? file_get_contents('move.txt') : "Welcome to Pak Earn! Please add members to increase your earnings.";
+
 // 2. Initial Records Data Fetch & Expiration Logic
 // We fetch everything from records first to minimize queries
 $stmt = $conn->prepare("SELECT * FROM records WHERE id = ?");
@@ -193,6 +196,30 @@ $conn->close();
     width: 100%;
     text-align: center;
     margin: 5px 0; /* Add equal spacing above and below */
+      }
+      .marquee-container {
+          background: #000;
+          color: #fff;
+          padding: 5px 0;
+          overflow: hidden;
+          width: 100%;
+          margin-bottom: 10px;
+          display: flex;
+      }
+      .marquee-content {
+          display: inline-block;
+          white-space: nowrap;
+          animation: marquee 25s linear infinite;
+          padding-left: 0;
+          font-weight: bold;
+      }
+      .marquee-content span {
+          padding-right: 40px;
+      }
+      @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+      }
 </style>
 <body>
 
@@ -237,12 +264,18 @@ $conn->close();
             <div class="marquee-container">
                 <div class="marquee-content">
                     <?php 
-            // Split text into individual lines for styling
-            $lines = explode('     ', $marqueeText);
-            foreach ($lines as $line) {
-                echo '<span>' . htmlspecialchars($line) . '</span>';
-            }
-            ?>
+                    // Split text into lines and render twice for seamless looping
+                    for($i = 0; $i < 2; $i++) {
+                        // Split by any newline character
+                        $lines = preg_split('/\r\n|\r|\n/', $marqueeText);
+                        foreach ($lines as $line) {
+                            $trimmedLine = trim($line);
+                            if ($trimmedLine !== '') {
+                                echo '<span>' . htmlspecialchars($trimmedLine) . '</span>';
+                            }
+                        }
+                    }
+                    ?>
                 </div>
             </div>
             <div class="user-info-box">
