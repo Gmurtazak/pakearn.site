@@ -149,7 +149,7 @@ if ($result === false || $result->num_rows === 0) {
 <body>
     <div class="referral-container">
     
-        <?php if ($stat === '0'): ?>
+        <?php if ($stat == 0 && $stat !== null): ?>
             <div class="alert-message">
                 Please add one more member through your link. Then you will get your Dashboard back. Shukriya!
             </div>
